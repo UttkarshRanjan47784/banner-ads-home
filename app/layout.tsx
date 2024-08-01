@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import RecoilContextProvider from "@/components/recoil-context-provider";
+import RecoilContextProvider from "@/components/store/recoil-context-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
