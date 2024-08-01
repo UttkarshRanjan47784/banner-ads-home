@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { genWithAi, getPhotosPexels } from "./actions/actions";
 import { useSetRecoilState } from "recoil";
-import { aiBanners, allImages } from "./store/store";
+import { aiBanners, altImages } from "./store/store";
 import { bannerInfoType, imgInfoType } from "./types/types";
 
 const UserPrompt = () => {
@@ -22,7 +22,7 @@ const UserPrompt = () => {
         };
       });
 
-      setAllImages(photoSRC);
+      setAltImages(photoSRC);
 
       let finalResult = result.map((item: bannerInfoType, index: number) => {
         return {
@@ -35,7 +35,7 @@ const UserPrompt = () => {
   };
 
   const setAiBanners = useSetRecoilState(aiBanners);
-  const setAllImages = useSetRecoilState(allImages);
+  const setAltImages = useSetRecoilState(altImages);
 
   const [userText, setUserText] = useState(``);
 

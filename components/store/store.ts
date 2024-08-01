@@ -11,9 +11,9 @@ const aiBanners = atom<bannerInfoType[] | []>({
   default: [],
 });
 
-const allImages = atom<imgInfoType[] | []>({
-  key: "allImages",
+const altImages = atom<imgInfoType[] | []>({
+  key: "altImages",
   default: [],
 });
 
-export { userQuery, aiBanners, allImages };
+export { userQuery, aiBanners, altImages };
