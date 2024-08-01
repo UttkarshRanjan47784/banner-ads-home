@@ -1,13 +1,19 @@
 import { atom } from "recoil";
+import { bannerInfoType, imgInfoType } from "../types/types";
 
 const userQuery = atom({
   key: "userQuery",
   default: ``,
 });
 
-const aiBanners = atom({
+const aiBanners = atom<bannerInfoType[] | []>({
   key: "aiBanners",
   default: [],
 });
 
-export { userQuery, aiBanners };
+const allImages = atom<imgInfoType[] | []>({
+  key: "allImages",
+  default: [],
+});
+
+export { userQuery, aiBanners, allImages };

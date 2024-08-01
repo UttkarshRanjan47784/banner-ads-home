@@ -5,8 +5,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { genWithAi, getPhotosPexels } from "./actions/actions";
 import { useSetRecoilState } from "recoil";
-import { aiBanners } from "./store/store";
-import { bannerInfoType } from "./types/types";
+import { aiBanners, allImages } from "./store/store";
+import { bannerInfoType, imgInfoType } from "./types/types";
 
 const UserPrompt = () => {
   const handleClick = async () => {
@@ -15,11 +15,19 @@ const UserPrompt = () => {
 
     let responseImg = await getPhotosPexels(userText);
     if ("photos" in responseImg) {
+      let photoSRC = responseImg.photos.map((item) => {
+        return {
+          bannerImageURL: item.src.medium,
+          bannerImageAlt: item.alt,
+        };
+      });
+
+      setAllImages(photoSRC);
+
       let finalResult = result.map((item: bannerInfoType, index: number) => {
         return {
           ...item,
-          bannerImageURL: responseImg.photos[index].src.medium,
-          bannerImageAlt: responseImg.photos[index].alt,
+          ...photoSRC[index],
         };
       });
       setAiBanners(finalResult);
@@ -27,6 +35,7 @@ const UserPrompt = () => {
   };
 
   const setAiBanners = useSetRecoilState(aiBanners);
+  const setAllImages = useSetRecoilState(allImages);
 
   const [userText, setUserText] = useState(``);
 

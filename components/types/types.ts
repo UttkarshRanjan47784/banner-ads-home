@@ -4,3 +4,8 @@ export type bannerInfoType = {
   bannerImageURL?: string;
   bannerImageAlt?: string;
 };
+
+export type imgInfoType = {
+  bannerImageURL: string | null;
+  bannerImageAlt: string | null;
+};

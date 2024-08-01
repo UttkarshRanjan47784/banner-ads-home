@@ -18,6 +18,6 @@ export const genWithAi = async (topic: string) => {
 
 export const getPhotosPexels = async (topic: string) => {
   const query = topic;
-  const response = await client.photos.search({ query, per_page: 4 });
+  const response = await client.photos.search({ query, per_page: 7 });
   return response;
 };
