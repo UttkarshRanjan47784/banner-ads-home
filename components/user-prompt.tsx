@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 const UserPrompt = () => {
   const handleClick = async () => {
+    setLoading(true);
     try {
       let reponse = await genWithAi(userText);
       if (reponse == `Ai Err`)
@@ -41,12 +42,14 @@ const UserPrompt = () => {
     } catch (error: any) {
       toast(error.message);
     }
+    setLoading(false);
   };
 
   const setAiBanners = useSetRecoilState(aiBanners);
   const setAltImages = useSetRecoilState(altImages);
 
   const [userText, setUserText] = useState(``);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="flex justify-center items-center my-10 mx-24 space-x-5">
@@ -58,8 +61,8 @@ const UserPrompt = () => {
           setUserText(event.target.value);
         }}
       />
-      <Button onClick={handleClick} disabled={userText.length == 0}>
-        Generate with AI
+      <Button onClick={handleClick} disabled={userText.length == 0 && !loading}>
+        {!loading ? `Generate with AI` : `Loading...`}
       </Button>
     </div>
   );
