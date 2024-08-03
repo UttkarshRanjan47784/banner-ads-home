@@ -22,12 +22,8 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
   const altImg = useRecoilValue(altImages);
   const setAllBanners = useSetRecoilState(aiBanners);
 
-  const [newBannerTitle, setNewBannerTitle] = useState(
-    allBanners[bannerNum].bannerTitle
-  );
-  const [newBannerDesc, setNewBannerDesc] = useState(
-    allBanners[bannerNum].bannerDescription
-  );
+  const [newBannerTitle, setNewBannerTitle] = useState("");
+  const [newBannerDesc, setNewBannerDesc] = useState("");
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   const handleImgChange = (event: any) => {
@@ -47,8 +43,14 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
       let temp = [...currVal];
       temp[bannerNum] = {
         ...temp[bannerNum],
-        bannerTitle: newBannerTitle,
-        bannerDescription: newBannerDesc,
+        bannerTitle:
+          newBannerTitle.length > 0
+            ? newBannerTitle
+            : temp[bannerNum].bannerTitle,
+        bannerDescription:
+          newBannerDesc.length > 0
+            ? newBannerDesc
+            : temp[bannerNum].bannerDescription,
       };
       return [...temp];
     });
@@ -134,6 +136,7 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
           <Input
             name="editBannerTitle"
             value={newBannerTitle}
+            placeholder="Enter new title"
             onChange={(event) => {
               setNewBannerTitle(event.target.value);
             }}
@@ -141,6 +144,7 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
           <Textarea
             name="editBannerDesc"
             value={newBannerDesc}
+            placeholder="Enter new description"
             onChange={(event) => {
               setNewBannerDesc(event.target.value);
             }}
