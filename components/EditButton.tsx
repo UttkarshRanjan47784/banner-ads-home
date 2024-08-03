@@ -1,5 +1,5 @@
 import { Pencil, Upload } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +29,7 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
   const [newBannerDesc, setNewBannerDesc] = useState(
     allBanners[bannerNum].bannerDescription
   );
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   const handleImgChange = (event: any) => {
     setAllBanners((currVal) => {
@@ -54,6 +55,23 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
     });
   };
 
+  const handleCustomImg = (event: any) => {
+    console.log(event.target.files[0]);
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setAllBanners((currVal) => {
+        let temp = [...currVal];
+        temp[bannerNum] = {
+          ...temp[bannerNum],
+          bannerImageURL: String(fileReader.result),
+          bannerImageAlt: `Custom Image`,
+        };
+        return [...temp];
+      });
+    };
+    fileReader.readAsDataURL(event.target.files[0]);
+  };
+
   return (
     <div className="absolute bottom-5 right-5 cursor-pointer">
       <Dialog>
@@ -69,11 +87,24 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
           </DialogHeader>
           <p>Images</p>
           <div className="flex items-center space-x-5 flex-wrap">
-            <Avatar className="size-10 cursor-pointer">
+            <Avatar
+              className="size-10 cursor-pointer"
+              onClick={() => {
+                console.log(`Clicked`);
+                fileRef.current?.click();
+              }}
+            >
               <AvatarImage src={``} />
               <AvatarFallback>
                 <Upload />
               </AvatarFallback>
+              <Input
+                type="file"
+                accept="image/jpg, image/png, image/jpeg"
+                className="hidden"
+                ref={fileRef}
+                onChange={handleCustomImg}
+              />
             </Avatar>
             {altImg.map((item, index) => {
               const flag =
