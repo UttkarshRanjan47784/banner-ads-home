@@ -1,6 +1,6 @@
 import DisplayGrid from "@/components/display-grid";
 import Navbar from "@/components/navbar";
-import UserPrompt from "@/components/userPrompt";
+import UserPrompt from "@/components/user-prompt";
 export default function Home() {
   return (
     <main className="flex flex-col w-full h-dvh">
