@@ -7,31 +7,40 @@ import { genWithAi, getPhotosPexels } from "./actions/actions";
 import { useSetRecoilState } from "recoil";
 import { aiBanners, altImages } from "./store/store";
 import { bannerInfoType, imgInfoType } from "./types/types";
+import { toast } from "sonner";
 
 const UserPrompt = () => {
   const handleClick = async () => {
-    let reponse = await genWithAi(userText);
-    let result = await JSON.parse(reponse);
+    try {
+      let reponse = await genWithAi(userText);
+      let result = await JSON.parse(reponse);
+      if (result == `Ai Err`)
+        throw Error(
+          `Gemini Model is overloaded at the moment. PLease try again after 30 seconds`
+        );
+      let responseImg = await getPhotosPexels(userText);
+      if ("photos" in responseImg) {
+        let photoSRC = responseImg.photos.map((item) => {
+          return {
+            bannerImageURL: item.src.medium,
+            bannerImageAlt: item.alt,
+          };
+        });
 
-    let responseImg = await getPhotosPexels(userText);
-    if ("photos" in responseImg) {
-      let photoSRC = responseImg.photos.map((item) => {
-        return {
-          bannerImageURL: item.src.medium,
-          bannerImageAlt: item.alt,
-        };
-      });
+        setAltImages(photoSRC);
 
-      setAltImages(photoSRC);
-
-      let finalResult = result.map((item: bannerInfoType, index: number) => {
-        return {
-          ...item,
-          ...photoSRC[index],
-        };
-      });
-      setAiBanners(finalResult);
-    } else alert(`Error!`);
+        let finalResult = result.map((item: bannerInfoType, index: number) => {
+          return {
+            ...item,
+            ...photoSRC[index],
+          };
+        });
+        setAiBanners(finalResult);
+      } else
+        throw Error(`Error fetching pictures from Pexels. Please try again.`);
+    } catch (error: any) {
+      toast(error.message);
+    }
   };
 
   const setAiBanners = useSetRecoilState(aiBanners);

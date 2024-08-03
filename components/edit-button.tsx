@@ -55,7 +55,6 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
   };
 
   const handleCustomImg = (event: any) => {
-    console.log(event.target.files[0]);
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setAllBanners((currVal) => {
@@ -89,7 +88,6 @@ const EditButton = ({ bannerNum }: { bannerNum: number }) => {
             <Avatar
               className="size-10 cursor-pointer"
               onClick={() => {
-                console.log(`Clicked`);
                 fileRef.current?.click();
               }}
             >
