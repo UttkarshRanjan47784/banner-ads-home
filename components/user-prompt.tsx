@@ -6,18 +6,18 @@ import { Button } from "./ui/button";
 import { genWithAi, getPhotosPexels } from "./actions/actions";
 import { useSetRecoilState } from "recoil";
 import { aiBanners, altImages } from "./store/store";
-import { bannerInfoType, imgInfoType } from "./types/types";
+import { bannerInfoType } from "./types/types";
 import { toast } from "sonner";
 
 const UserPrompt = () => {
   const handleClick = async () => {
     try {
       let reponse = await genWithAi(userText);
-      let result = await JSON.parse(reponse);
-      if (result == `Ai Err`)
+      if (reponse == `Ai Err`)
         throw Error(
-          `Gemini Model is overloaded at the moment. PLease try again after 30 seconds`
+          `Gemini Model is overloaded at the moment. Please try again after 30 seconds`
         );
+      let result = await JSON.parse(reponse);
       let responseImg = await getPhotosPexels(userText);
       if ("photos" in responseImg) {
         let photoSRC = responseImg.photos.map((item) => {
