@@ -12,7 +12,11 @@ const DisplayGrid = () => {
     <Banner item={item} index={index} key={index} />
   ));
 
-  return <div className="grid grid-cols-2 gap-5">{renderBanners}</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 pb-5">
+      {renderBanners}
+    </div>
+  );
 };
 
 export default DisplayGrid;

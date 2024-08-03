@@ -6,7 +6,7 @@ export default function Home() {
     <main className="flex flex-col w-full h-dvh">
       <Navbar />
       <UserPrompt />
-      <div className="grow flex justify-center items-center px-20">
+      <div className="grow flex justify-center items-center px-5 sm:px-20">
         <DisplayGrid />
       </div>
     </main>

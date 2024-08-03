@@ -52,7 +52,7 @@ const UserPrompt = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="flex justify-center items-center my-10 mx-24 space-x-5">
+    <div className="flex flex-col md:flex-row md:justify-center md:items-center my-10 mx-5 md:mx-24 md:space-x-5 space-y-5 md:space-y-0">
       <Input
         name="userPrompt"
         placeholder="Enter prompt"

@@ -6,7 +6,7 @@ import EditButton from "./edit-button";
 
 const Banner = ({ item, index }: { item: bannerInfoType; index: number }) => {
   return (
-    <div key={index} className="h-80 w-80 relative shadow-xl">
+    <div key={index} className="h-64 w-64 sm:h-80 sm:w-80 relative shadow-xl">
       <Image
         alt={item.bannerImageAlt || ""}
         src={item.bannerImageURL || ""}
